@@ -5,6 +5,9 @@ package adt;
  * @version 2.0
  */
 
+// Ctrl + Shift + I = Organize import
+// Alt + Shift + F = Format code
+
 import java.io.Serializable;
 
 public class ArrayList<T> implements ListInterface<T>, Serializable {
