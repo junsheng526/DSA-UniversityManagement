@@ -30,10 +30,11 @@ public class ProgrammeManagement {
                     break;
                 case 1:
                     addNewProgramme();
+                    programmeUI.listAllProgrammes(getAllProgrammes());
                     programmeUI.displayMessage("New programme added.");
                     break;
                 case 2:
-                    listAllProgrammes();
+                    programmeUI.displayMessage("Currently no this action");
                     break;
                 case 3:
                     findProgramme();
@@ -42,7 +43,7 @@ public class ProgrammeManagement {
                     amendProgrammeDetails();
                     break;
                 case 5:
-                    listAllTutorialGroups();
+                    programmeUI.listAllProgrammes(getAllProgrammes());
                     break;
                 case 6:
                     addTutorialGroup();
@@ -65,11 +66,10 @@ public class ProgrammeManagement {
         programmeDAO.saveToFile(programmeList);
     }
 
-    public void listAllProgrammes() {
-        String outputStr = getAllProgrammes();
-        programmeUI.displayMessage(outputStr);
-    }
-
+//    public void listAllProgrammes() {
+//        String outputStr = getAllProgrammes();
+//        programmeUI.displayMessage(outputStr);
+//    }
     public void findProgramme() {
         String programmeCode = programmeUI.inputProgrammeCode();
         Programme programme = findProgrammeByCode(programmeCode);
@@ -82,12 +82,11 @@ public class ProgrammeManagement {
 
     public void amendProgrammeDetails() {
         String programmeCode = programmeUI.inputProgrammeCode();
-        Programme programme = findProgrammeByCode(programmeCode);
-        if (programme != null) {
-            programmeUI.displayMessage("Enter new details:");
+        int programmePosition = findGivenPosition(programmeCode);
+        if (programmePosition != -1) {
+            programmeUI.displayMessage("### Please enter new details ###");
             Programme newProgrammeDetails = programmeUI.inputProgrammeDetails();
-            programme.setCode(newProgrammeDetails.getCode());
-            programme.setName(newProgrammeDetails.getName());
+            programmeList.replace(programmePosition, newProgrammeDetails);
             programmeUI.displayMessage("Programme details amended.");
         } else {
             programmeUI.displayMessage("Programme not found.");
@@ -95,20 +94,31 @@ public class ProgrammeManagement {
     }
 
     public void listAllTutorialGroups() {
-
+        programmeUI.displayMessage("Currently no this action");
     }
 
     public void addTutorialGroup() {
-
+        programmeUI.displayMessage("Currently no this action");
     }
 
     public void removeTutorialGroup() {
-
+        programmeUI.displayMessage("Currently no this action");
     }
 
     public void generateReports() {
         // Implement generating relevant reports
         // This functionality will depend on the reports you need to generate
+        programmeUI.displayMessage("Currently no this action");
+    }
+
+    private int findGivenPosition(String programmeCode) {
+        for (int i = 1; i <= programmeList.getNumberOfEntries(); i++) {
+            Programme programme = programmeList.getEntry(i);
+            if (programme.getCode().equals(programmeCode)) {
+                return i;
+            }
+        }
+        return -1;
     }
 
     private Programme findProgrammeByCode(String programmeCode) {
@@ -120,19 +130,12 @@ public class ProgrammeManagement {
         }
         return null;
     }
-    
+
     public String getAllProgrammes() {
-        String outputStr = "List of Programmes:\n";
-        Programme[] programmeArray = new Programme[programmeList.getNumberOfEntries()];
-
+        String outputStr = "";
         for (int i = 1; i <= programmeList.getNumberOfEntries(); i++) {
-            programmeArray[i - 1] = programmeList.getEntry(i);
+            outputStr += programmeList.getEntry(i) + "\n";
         }
-
-        for (Programme programme : programmeArray) {
-            outputStr += programme + "\n";
-        }
-
         return outputStr;
     }
 
@@ -141,5 +144,3 @@ public class ProgrammeManagement {
         programmeManagement.runProgrammeManagement();
     }
 }
-
-

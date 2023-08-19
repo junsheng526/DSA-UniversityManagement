@@ -62,6 +62,6 @@ public class Programme implements Serializable {
 
     @Override
     public String toString() {
-        return String.format("%-10s %-40s", code, name);
+        return String.format(" %-20s %-50s", code, name);
     }
 }

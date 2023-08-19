@@ -5,6 +5,7 @@
 package boundary;
 
 import entity.Programme;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class ProgrammeManagementUI {
@@ -12,22 +13,53 @@ public class ProgrammeManagementUI {
     Scanner scanner = new Scanner(System.in);
 
     public int getMenuChoice() {
-        System.out.println("\nPROGRAMME MANAGEMENT MENU");
-        System.out.println("1. Add a new programme");
-        System.out.println("2. Remove a programme");
-        System.out.println("3. Find a programme");
-        System.out.println("4. Amend programme details");
-        System.out.println("5. List all programmes");
-        System.out.println("6. Add a tutorial group to a programme");
-        System.out.println("7. Remove a tutorial group from a programme");
-        System.out.println("8. List all tutorial groups for a programme");
-        System.out.println("9. Generate relevant reports");
+        System.out.println("\n");
+        printLine_28();
+        System.out.println("PROGRAMME MANAGEMENT MENU");
+        printLine_28();
+        System.out.println("1. Add Programme");
+        System.out.println("2. Remove Programme");
+        System.out.println("3. Search Programme");
+        System.out.println("4. Update Programme");
+        System.out.println("5. View Programme Details");
+        System.out.println("6. Add Tutorial Group");
+        System.out.println("7. Remove Tutorial Group");
+        System.out.println("8. List All Tutorial Groups");
+        System.out.println("9. Generate Reports");
         System.out.println("0. Quit");
-        System.out.print("Enter choice: ");
-        int choice = scanner.nextInt();
-        scanner.nextLine();
-        System.out.println();
+        printLine_28();
+        System.out.print("Please enter your choice: ");
+        int choice = -1;
+        try {
+            choice = scanner.nextInt();
+            if (choice < 0 || choice > 9) {
+                System.out.println("Invalid choice. Please enter a number between 0 and 9.");
+            }
+        } catch (InputMismatchException e) {
+            System.out.println("Invalid input. Please enter a valid number.");
+            scanner.nextLine(); // Clear the invalid input
+        }
+
+        scanner.nextLine(); // Consume the newline left in the buffer
+        System.out.println(); // Add a blank line after input
+
         return choice;
+    }
+
+    public void printLine_28() {
+        System.out.println("----------------------------");
+    }
+    
+    public void printLine_40() {
+        System.out.println("----------------------------------------");
+    }
+
+    public void listAllProgrammes(String outputStr) {
+        printLine_40();
+        System.out.printf(" %-20s %-50s%n", "Programme Code", "Programme Name");
+        printLine_40();
+        System.out.print(outputStr);
+        printLine_40();
     }
 
     public Programme inputProgrammeDetails() {
