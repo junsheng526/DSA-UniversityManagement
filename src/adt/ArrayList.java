@@ -6,7 +6,7 @@ package adt;
  */
 
 import java.io.Serializable;
-
+// try
 public class ArrayList<T> implements ListInterface<T>, Serializable {
 
   private T[] array;
